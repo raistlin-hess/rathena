@@ -13159,3 +13159,32 @@
 //===================================================================
 32301,Illusion_Gold_Lux,Illusion Gold Lux,5,20,,1800,160,,7,2,0x41000000,63,2,34,4,120,1,17,{ .@r = getrefine(); bonus bHit,10; bonus bLongAtkRate,3*(.@r/2); if (.@r >= 7) { bonus2 bSkillAtk,"GS_DESPERADO",40; if (.@r >= 9) { bonus2 bSkillCooldown,"RL_HEAT_BARREL",-2000; if (.@r >= 11) { bonus2 bSkillAtk,"RL_FIREDANCE",30; } } } },{},{}
 32302,Crimson_Rose,Crimson Rose,5,20,,700,150,,7,2,0x40000000,63,2,34,4,100,1,17,{ .@r = getrefine(); bonus bBaseAtk,10*(.@r/2); bonus bAspdRate,3*(.@r/3); if (.@r >= 7) { bonus bAspd,1; bonus2 bAddClass,Class_All,5; if (.@r >= 9) { bonus bCritAtkRate,20; if (.@r >= 11) { autobonus3 "{ bonus bCritical,20; bonus bLongAtkRate,15; }",1000,60000,"RL_HEAT_BARREL"; } } } },{},{}
+
+
+//===================================================================
+// My Custom Items
+//===================================================================
+// ID,AegisName,Name,Type,Buy,Sell,Weight,ATK[:MATK],DEF,Range,Slots,Job,Class,Gender,Loc,wLV,eLV[:maxLevel],Refineable,View,{ Script },{ OnEquip_Script },{ OnUnequip_Script }
+40000,mage_clip,Mage's Clip,4,300000,,100,,0,,2,0xFFFFFFFF,63,2,136,,0,0,0,{ fakemage; },{},{}
+40001,acolyte_clip,Acolyte's Clip,4,300000,,100,,0,,2,0xFFFFFFFF,63,2,136,,0,0,0,{ fakeacolyte; },{},{}
+40002,knight_clip,Knight's Clip,4,300000,,100,,0,,2,0xFFFFFFFF,63,2,136,,0,0,0,{ fakeknight; },{},{}
+40003,priest_clip,Priest's Clip,4,300000,,100,,0,,2,0xFFFFFFFF,63,2,136,,0,0,0,{ fakepriest; },{},{}
+40004,wizard_clip,Wizard's Clip,4,300000,,100,,0,,2,0xFFFFFFFF,63,2,136,,0,0,0,{ fakewizard; },{},{}
+40005,hunter_clip,Hunter's Clip,4,300000,,100,,0,,2,0xFFFFFFFF,63,2,136,,0,0,0,{ fakehunter; },{},{}
+40006,npc_clip,Npc's Clip,4,300000,,100,,0,,2,0xFFFFFFFF,63,2,136,,0,0,0,{ fakenpc; },{},{}
+40007,rogue_clip,Rogue's Clip,4,300000,,100,,0,,2,0xFFFFFFFF,63,2,136,,0,0,0,{ fakerogue; },{},{}
+40008,alchemist_clip,Alchemist's Clip,4,300000,,100,,0,,2,0xFFFFFFFF,63,2,136,,0,0,0,{ fakealchemist; },{},{}
+40009,crusader_clip,Crusader's Clip,4,300000,,100,,0,,2,0xFFFFFFFF,63,2,136,,0,0,0,{ fakecrusader; },{},{}
+40010,monk_clip,Monk's Clip,4,300000,,100,,0,,2,0xFFFFFFFF,63,2,136,,0,0,0,{ fakemonk; },{},{}
+40011,sage_clip,Sage's Clip,4,300000,,100,,0,,2,0xFFFFFFFF,63,2,136,,0,0,0,{ fakesage; },{},{}
+40012,gunslinger_clip,Gunslinger's Clip,4,300000,,100,,0,,2,0xFFFFFFFF,63,2,136,,0,0,0,{ fakegunslinger; },{},{}
+40013,ninja_clip,Ninja's Clip,4,300000,,100,,0,,2,0xFFFFFFFF,63,2,136,,0,0,0,{ fakeninja; },{},{}
+40014,runeknight_clip,Runeknight's Clip,4,300000,,100,,0,,2,0xFFFFFFFF,63,2,136,,0,0,0,{ fakeruneknight; },{},{}
+40015,warlock_clip,Warlock's Clip,4,300000,,100,,0,,2,0xFFFFFFFF,63,2,136,,0,0,0,{ fakewarlock; },{},{}
+40016,archbishop_clip,Archbishop's Clip,4,300000,,100,,0,,2,0xFFFFFFFF,63,2,136,,0,0,0,{ fakearchbishop; },{},{}
+40017,ranger_clip,Ranger's Clip,4,300000,,100,,0,,2,0xFFFFFFFF,63,2,136,,0,0,0,{ fakeranger; },{},{}
+40018,shadowchaser_clip,Shadowchaser's Clip,4,300000,,100,,0,,2,0xFFFFFFFF,63,2,136,,0,0,0,{ fakeshadowchaser; },{},{}
+40019,royalguard_clip,Royalguard's Clip,4,300000,,100,,0,,2,0xFFFFFFFF,63,2,136,,0,0,0,{ fakeroyalguard; },{},{}
+40020,sura_clip,Sura's Clip,4,300000,,100,,0,,2,0xFFFFFFFF,63,2,136,,0,0,0,{ fakesura; },{},{}
+40021,sorcerer_clip,Sorcerer's Clip,4,300000,,100,,0,,2,0xFFFFFFFF,63,2,136,,0,0,0,{ fakesorcerer; },{},{}
+40022,kageobo_clip,Kageobo's Clip,4,300000,,100,,0,,2,0xFFFFFFFF,63,2,136,,0,0,0,{ fakekageobo; },{},{}

@@ -1,0 +1,24 @@
+//===== rAthena Script =======================================
+//= Item Mall Warper
+//===== By: ==================================================
+//= Me
+//===== Current Version: =====================================
+//= 1.0
+//===== Compatible With: =====================================
+//= rAthena Project
+//===== Description: =========================================
+//= Map containing many shops
+//===== Additional Comments: =================================
+//= 1.0 - First version of script
+//============================================================
+
+// Entrance
+prontera,164,196,3	script	Mall Warper	735,{
+	mes "[ ^0065DFMall Warper^000000 ]";
+	mes "Would you like to go to";
+	mes "the Item Mall?";
+	if (select("Yes","No") == 2) close;
+	warp "ama_test",49,92;
+	close;
+}
+

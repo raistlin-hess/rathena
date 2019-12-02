@@ -326,7 +326,7 @@ p_track01	mapflag	noteleport
 p_track02	mapflag	noteleport
 
 // Poring War ====================
-poring_w01	mapflag	noteleport
+//poring_w01	mapflag	noteleport
 poring_w02	mapflag	noteleport
 poring_w02	mapflag	monster_noteleport
 

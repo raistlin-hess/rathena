@@ -127,3 +127,11 @@ Thumbs.db
 
 # CMakeFiles
 /CMakeFiles/
+
+# VS Code
+.vscode/
+.history/
+
+# Log files
+atcommandlog
+feedinglog

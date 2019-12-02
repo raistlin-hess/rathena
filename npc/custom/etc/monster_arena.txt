@@ -24,7 +24,7 @@
 //============================================================
 
 // Entrance //
-prontera,158,193,6	script	Monster Arena	702,{
+prontera,157,197,6	script	Monster Arena	702,{
 	mes "[Monster Arena]";
 	mes "Would you like to enter the Monster Arena?";
 	mes "Currently ^FF0000" + getmapusers("gon_test") + "^000000 players";
