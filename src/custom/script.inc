@@ -34,7 +34,7 @@ BUILDIN_FUNC(fakemage) {
         skill \"MG_SIGHT\", 1; \
         skill \"MG_NAPALMBEAT\", 10; \
         skill \"MG_SAFETYWALL\", 10; \
-        skill \"MG_SOULSTRIKE\", 30; \
+        skill \"MG_SOULSTRIKE\", 10; \
         skill \"MG_COLDBOLT\", 10; \
         skill \"MG_FROSTDIVER\", 10; \
         skill \"MG_STONECURSE\", 10; \
