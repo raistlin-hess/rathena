@@ -1994,6 +1994,11 @@ enum e_skill {
 	EL_ROCK_CRUSHER,
 	EL_ROCK_CRUSHER_ATK,
 	EL_STONE_RAIN,
+
+	//Custom Skills
+	//GB = Gambler, AT = auto
+	GB_AT_BASH = 8443,
+	GB_END,
 };
 
 /// The client view ids for land skills.

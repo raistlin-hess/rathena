@@ -138,6 +138,10 @@ static int skill_destroy_trap( struct block_list *bl, va_list ap );
 static int skill_check_condition_mob_master_sub (struct block_list *bl, va_list ap);
 static bool skill_check_condition_sc_required(struct map_session_data *sd, unsigned short skill_id, struct skill_condition *require);
 static bool skill_check_unit_movepos(uint8 check_flag, struct block_list *bl, short dst_x, short dst_y, int easy, bool checkpath);
+void handleGamblerSkills(struct map_session_data *sd, block_list *src, block_list *bl, t_tick tick);
+bool shouldGamblerSkillTrigger(uint8 skill_lv);
+uint16 gamblerSkillIdToRealSkillId(uint16 gamblerSkillId);
+uint16 gamblerSkillIdToRealSkillLvl(uint16 gamblerSkillLvl);
 
 // Use this function for splash skills that can't hit icewall when cast by players
 static inline int splash_target(struct block_list* bl) {
@@ -1309,6 +1313,9 @@ int skill_additional_effect(struct block_list* src, struct block_list *bl, uint1
 					}
 					if(sc && sc->data[SC_PYROCLASTIC] && ((rnd()%100)<=sc->data[SC_PYROCLASTIC]->val3) )
 						skill_castend_pos2(src, bl->x, bl->y, BS_HAMMERFALL,sc->data[SC_PYROCLASTIC]->val1, tick, 0);
+
+					//Gambler auto-trigger skills
+					handleGamblerSkills(sd, src, bl, tick);
 				}
 
 				if (sc) {
@@ -2274,6 +2281,56 @@ int skill_additional_effect(struct block_list* src, struct block_list *bl, uint1
 	}
 
 	return 0;
+}
+
+/**
+ * Roll random number for each Gambler skill to determine if it should trigger.
+ * TODO: Decide if more than 1 skill should be allowed to trigger
+ */
+void handleGamblerSkills(struct map_session_data *sd, block_list *src, block_list *bl, t_tick tick) {
+	//change to iterate enum btwn GB skills
+	ShowDebug("handleGamblerSkills Started\n");
+	for(uint16 skill_id = GB_AT_BASH; skill_id < GB_END; skill_id++) {
+		ShowDebug("  loop skill_id: %u\n", skill_id);
+		uint8 skill_lv = pc_checkskill(sd, skill_id);
+		ShowDebug("  loop skill_lv: %u\n", skill_lv);
+
+		if(shouldGamblerSkillTrigger(skill_lv)) {
+			uint16 realSkillId = gamblerSkillIdToRealSkillId(skill_id);
+			uint16 realSkillLvl = gamblerSkillIdToRealSkillLvl(skill_lv);
+			ShowDebug("  Gambler skill triggered. gSkillId: %u. Using skill id: %u at level %u\n", skill_id, realSkillId, realSkillLvl);
+			// TODO: Figure out if we can consume SP as required by the skill, otherwise fail it.
+			skill_castend_damage_id(src, bl, realSkillId, skill_lv, tick, 0);
+		}
+	}
+	ShowDebug("handleGamblerSkills Ended\n");
+}
+
+/**
+ * Determine, based on skill level, if a Gambler skill should autotrigger.
+ * For now, it's a simple 5% per level chance.
+ */
+bool shouldGamblerSkillTrigger(uint8 skill_lv) {
+	int32 number = rnd_value(0, 100);
+	int threshold = skill_lv * 5;
+	ShowDebug("  shouldGamblerSkillTrigger: %d / %d\n", number, threshold);
+
+	return number <= threshold;
+}
+
+/**
+ * Handle mapping of Gambler autoskill to the skill it should trigger.
+ * TODO: Maybe move this mapping to a file like abracadabra?
+ */
+uint16 gamblerSkillIdToRealSkillId(uint16 gamblerSkillId) {
+	if(gamblerSkillId == GB_AT_BASH) return SM_BASH;
+
+	return 0;
+}
+
+uint16 gamblerSkillIdToRealSkillLvl(uint16 gamblerSkillLvl) {
+	ShowDebug("  gamblerSkillIdToRealSkillLvl gamblerSkillLvl: %u\n", gamblerSkillLvl);
+	return gamblerSkillLvl / 2U;
 }
 
 int skill_onskillusage(struct map_session_data *sd, struct block_list *bl, uint16 skill_id, t_tick tick) {
@@ -4669,6 +4726,7 @@ int skill_castend_damage_id (struct block_list* src, struct block_list *bl, uint
 	struct status_data *tstatus;
 	struct status_change *sc, *tsc;
 
+	if(skill_id == SM_BASH) ShowDebug("    skill_castend_damage_id called for SM_BASH. skill_lv: %u\n", skill_lv);
 	if (skill_id > 0 && !skill_lv) return 0;
 
 	nullpo_retr(1, src);
