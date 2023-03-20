@@ -1,8 +1,28 @@
-FROM ubuntu:20.04
+FROM ubuntu:20.04 as build
 
+# Install libraries needed to build from source
+RUN apt-get update && \
+  apt-get install -y \
+    g++ gcc make && \
+    libmariadb-dev libmariadbclient-dev libmariadbclient-dev-compat zlib1g-dev libpcre3-dev \
+  apt-get clean && \
+  rm -rf /var/lib/apt/lists/*
+
+# Create directory to store source
+ENV SOURCE_DIR=/tmp/rathena
+RUN mkdir -p "${SOURCE_DIR}"
+WORKDIR ${SOURCE_DIR}
+
+# Copy source code over and build
+COPY . "${SOURCE_DIR}"
+
+RUN ./configure && make
+
+FROM ubuntu:20.04 as server
 # Install libraries needed to run the server
 RUN apt-get update && \
-  apt-get install -y default-libmysqlclient-dev && \
+  apt-get install -y \
+  libmariadb-dev libmariadbclient-dev libmariadbclient-dev-compat gcc g++ zlib1g-dev libpcre3-dev && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/*
 
@@ -22,9 +42,8 @@ USER server
 WORKDIR ${HOME_DIR}
 
 # Copy all server binaries
-COPY --chown=server:server login-server login-server
-COPY --chown=server:server map-server map-server
-COPY --chown=server:server char-server char-server
+COPY --chown=server:server --from=build /tmp/rathena ${HOME_DIR}
+RUN ls -al ${HOME_DIR}
 RUN chmod +x *-server
 
 # Copy config files
