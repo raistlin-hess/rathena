@@ -3,8 +3,8 @@ FROM ubuntu:20.04 as build
 # Install libraries needed to build from source
 RUN apt-get update && \
   apt-get install -y \
-    g++ gcc make && \
-    libmariadb-dev libmariadbclient-dev libmariadbclient-dev-compat zlib1g-dev libpcre3-dev \
+    g++ gcc make \
+    libmariadb-dev libmariadbclient-dev libmariadbclient-dev-compat zlib1g-dev libpcre3-dev && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/*
 
