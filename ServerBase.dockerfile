@@ -1,4 +1,6 @@
 FROM ubuntu:20.04 as build
+# Change this to define the client version supported by the server. Format is YYYYMMDD as specified in src/custom/defines_pre.hpp or src/config/packets.hpp
+ARG CLIENT_VER=20200401
 
 # Install libraries needed to build from source
 RUN apt-get update && \
@@ -16,7 +18,7 @@ WORKDIR ${SOURCE_DIR}
 # Copy source code over and build
 COPY . "${SOURCE_DIR}"
 
-RUN ./configure && make
+RUN ./configure --enable-packetver=${CLIENT_VER} && make
 
 FROM ubuntu:20.04 as server
 # Install libraries needed to run the server
