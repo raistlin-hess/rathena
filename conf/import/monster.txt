@@ -1,0 +1,10 @@
+// How often should a monster rethink its chase?
+// 0: Every 100ms (MIN_MOBTHINKTIME)
+// 1: Every cell moved
+// 2: Every 2 cells moved
+// 3: Every 3 cells moved (official)
+// x: Every x cells moved
+// Regardless of this setting, a monster will always rethink its chase if it has 
+// reached its target. Increase this value if you want to make monsters continue
+// moving after they lost their target (hide, no line of sight, etc.).
+monster_chase_refresh: 6
