@@ -5,13 +5,13 @@ start_zeny: 10000
 // NOTE: Do not use spaces or any of these characters which are not allowed in
 //       Windows filenames \/:*?"<>|
 //       ... or else guild emblems won't work client-side!
-server_name: rAthena_local
+server_name: HessRO
 
 // Login Server IP
 // The character server connects to the login server using this IP address.
 // NOTE: This is useful when you are running behind a firewall or are on
 // a machine with multiple interfaces.
-login_ip: login-server
+login_ip: login
 
 // Login Server Port
 login_port: 6900
@@ -19,7 +19,7 @@ login_port: 6900
 // Character Server IP
 // The IP address which clients will use to connect.
 // Set this to what your server's public IP address is.
-char_ip: char-server
+char_ip: 127.0.0.1
 
 // Character Server Port
 char_port: 6121
