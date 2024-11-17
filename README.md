@@ -17,7 +17,7 @@ If you make code changes or would like to target a different `PACKETVER`, make s
 ## Server connection
 1. Download [kRO_FulClient_20230404](https://mega.nz/folder/jUsDgRxQ#ttLmLjPY9p9cfU5_ShWVCw) ([source](https://rathena.org/board/topic/106413-kro-full-client-2023-04-04-includes-bgm-rsu/))
 1. Using [GRF Editor](https://rathena.org/board/files/file/2766-grf-editor/), create a new GRF.
-   1. Inside the GRF, create a file at `data/clientinfo.xml`. Using the template below as a base, update the `address` and `port` to match those of your `login-server`.
+   1. Inside the GRF, create a file at `data/sclientinfo.xml`. Using the template below as a base, update the `address` and `port` to match those of your `login-server`.
         ```xml
             <?xml version="1.0" encoding="euc-kr" ?>
             <clientinfo>
@@ -48,12 +48,12 @@ If you make code changes or would like to target a different `PACKETVER`, make s
         ```
     1. Save the XML file and then save the GRF.
     1. In order to make the client read this new GRF, open the `DATA.INI` file in the root of your client's directory.
-    1. The client will load GRFs in ascending order. If you have the same file in multiple GRFs, the file in the highest number GRF takes precedence. In the example below, `data/clientinfo.xml` from `rdata.grf` will be ignored and replaced with the one in `custom_data.grf`.
+    1. The client will load GRFs in ascending order. If you have the same file in multiple GRFs, the file in the lowest number GRF takes precedence. In the example below, `data/clientinfo.xml` from `rdata.grf` will be ignored and not override the one in `custom_data.grf`.
         ```ini
             [Data]
+            0=custom_data.grf
             1=rdata.grf
             2=data.grf
-            3=custom_data.grf
         ```
 1. Download the most recent version of [WARP](https://github.com/Neo-Mind/WARP)
 1. Run the exe under `win32/WARP.exe`.
