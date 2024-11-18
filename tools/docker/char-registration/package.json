@@ -1,0 +1,19 @@
+{
+  "name": "char-registration",
+  "version": "1.0.0",
+  "description": "Note that this Dockerized environment **is not suitable** for production deployments, see [Installations](https://github.com/rathena/rathena/wiki/installations) instead.",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "nodemon --verbose ./src/index.js",
+    "start": "node ./src/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@picocss/pico": "^2.0.6",
+    "ejs": "^3.1.10",
+    "express": "^4.21.1",
+    "mariadb": "^3.4.0",
+    "nodemon": "^3.1.7"
+  }
+}
