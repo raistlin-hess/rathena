@@ -83,7 +83,7 @@ services:
         image: "registration"
         container_name: "registration"
         ports:
-            - "80:80"
+            - "9001:80"
         build:
             context: ./char-registration
             dockerfile: Dockerfile
