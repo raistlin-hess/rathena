@@ -83,12 +83,18 @@ services:
         image: "registration"
         container_name: "registration"
         ports:
-            - "9001:80"
+            - "9001:443"
         build:
             context: ./char-registration
             dockerfile: Dockerfile
+        volumes:
+            # Read-only access to SSL certs one folder outside of repo root
+            - "../../../cert.pem:/usr/server/cert.pem:ro"
+            - "../../../privkey.pem:/usr/server/privkey.pem:ro"
         environment:
-            EXPRESS_PORT: 80
+            EXPRESS_PORT: 443
+            EXPRESS_CERT_PATH: cert.pem
+            EXPRESS_CERT_PRIV_KEY_PATH: privkey.pem
             DB_HOST: db
             DB_USER: ragnarok
             DB_PASSWORD: ragnarok

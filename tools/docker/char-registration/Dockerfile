@@ -19,7 +19,7 @@ USER node
 COPY . .
 
 # Expose the port that the application listens on.
-EXPOSE 80
+EXPOSE 443
 
 # Run the application.
 # CMD node src/index.js
