@@ -7,6 +7,7 @@ const ENV = {
   DB_USER: process.env.DB_USER ?? 'ragnarok',
   DB_PASSWORD: process.env.DB_PASSWORD ?? 'ragnarok',
   DB_DATABASE_NAME: process.env.DB_DATABASE_NAME ?? 'ragnarok',
+  DB_ENABLE_DEBUG: (process.env.DB_ENABLE_DEBUG?.toLowerCase() ?? 'false') == 'true',
 };
 
 module.exports = ENV;

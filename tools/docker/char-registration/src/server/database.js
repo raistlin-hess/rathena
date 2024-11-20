@@ -1,4 +1,4 @@
-const { DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE_NAME } = require('../env');
+const { DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE_NAME, DB_ENABLE_DEBUG } = require('../env');
 const mariadb = require('mariadb');
 
 module.exports = {
@@ -16,8 +16,8 @@ function initializeConnectionPool() {
     password: DB_PASSWORD,
     database: DB_DATABASE_NAME,
     connectionLimit: 2,
-    trace: true,
-    debug: true,
+    trace: DB_ENABLE_DEBUG,
+    debug: DB_ENABLE_DEBUG,
   });
 }
 

@@ -99,6 +99,7 @@ services:
             DB_USER: ragnarok
             DB_PASSWORD: ragnarok
             DB_DATABASE_NAME: ragnarok
+            DB_ENABLE_DEBUG: false
 
 volumes:
     rathenadb:
