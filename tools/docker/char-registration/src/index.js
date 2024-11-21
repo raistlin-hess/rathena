@@ -3,7 +3,7 @@ const express = require('express');
 const { readFileSync } = require('fs');
 const { resolve } = require('path');
 const { initializeConnectionPool } = require('./server/database');
-const { EXPRESS_PORT, EXPRESS_CERT_PATH, EXPRESS_CERT_PRIV_KEY_PATH } = require('./env');
+const { EXPRESS_PORT, EXPRESS_CERT_PATH, EXPRESS_CERT_PRIV_KEY_PATH, EXPRESS_USE_SELF_SIGNED } = require('./env');
 
 
 //Create and configure server
@@ -13,9 +13,6 @@ app.use(express.json());
 app.set('view engine', 'ejs');
 app.set('views', 'src/views');
 
-//Prepare SSL
-const cert = readFileSync(resolve(EXPRESS_CERT_PATH));
-const privateKey = readFileSync(resolve(EXPRESS_CERT_PRIV_KEY_PATH));
 
 //Routing
 console.log('Registering route handlers...');
@@ -26,11 +23,20 @@ console.log('Initializing database connection pool...');
 initializeConnectionPool();
 console.log('Connection pool initialized');
 
-//Start server
-https.createServer({
-  key: privateKey,
-  cert,
-}, app)
-  .listen(EXPRESS_PORT, () => {
-    console.log(`Server listening on port: ${EXPRESS_PORT}`);
-  });
+if(EXPRESS_USE_SELF_SIGNED) {
+  app.listen(EXPRESS_PORT);
+  console.log(`Serving HTTP traffic on port: ${EXPRESS_PORT}`);
+} else {
+  //Prepare SSL
+  const cert = readFileSync(resolve(EXPRESS_CERT_PATH));
+  const privateKey = readFileSync(resolve(EXPRESS_CERT_PRIV_KEY_PATH));
+
+  //Start server
+  https.createServer({
+    key: privateKey,
+    cert,
+  }, app)
+    .listen(EXPRESS_PORT, () => {
+      console.log(`Serving HTTPS traffic on port: ${EXPRESS_PORT}`);
+    });
+}

@@ -7,7 +7,7 @@
     "dev": "nodemon --verbose ./src/index.js",
     "start": "node ./src/index.js"
   },
-  "author": "",
+  "author": "raistlin-hess",
   "license": "ISC",
   "dependencies": {
     "@picocss/pico": "^2.0.6",
