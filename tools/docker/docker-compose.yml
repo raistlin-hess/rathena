@@ -100,6 +100,7 @@ services:
             DB_PASSWORD: ragnarok
             DB_DATABASE_NAME: ragnarok
             DB_ENABLE_DEBUG: false
+            USE_MD5_PASSWORD: true
 
 volumes:
     rathenadb:

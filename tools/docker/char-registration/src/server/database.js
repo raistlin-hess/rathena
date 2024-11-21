@@ -1,5 +1,6 @@
-const { DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE_NAME, DB_ENABLE_DEBUG } = require('../env');
+const { DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE_NAME, DB_ENABLE_DEBUG, USE_MD5_PASSWORD } = require('../env');
 const mariadb = require('mariadb');
+const { createHash } = require('crypto');
 
 module.exports = {
   initializeConnectionPool,
@@ -27,7 +28,15 @@ async function doesUserExist(username) {
 }
 
 async function createUser(username, password) {
-  const response = await runQuery('INSERT INTO login (userid, user_pass, sex, email, group_id, character_slots) VALUES (?, ?, "M", "a@a.com", 99, 12);', [username, password]);
+  let finalPassword = password;
+  if(USE_MD5_PASSWORD) {
+    //Hash password using MD5 and store as a hex string
+    finalPassword = createHash('md5')
+      .update(finalPassword)
+      .digest('hex');
+  }
+
+  const response = await runQuery('INSERT INTO login (userid, user_pass, sex, email, group_id, character_slots) VALUES (?, ?, "M", "a@a.com", 0, 12);', [username, finalPassword]);
   return response.affectedRows == 1;
 }
 

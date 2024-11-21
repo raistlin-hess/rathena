@@ -7,7 +7,12 @@ const ENV = {
   DB_USER: process.env.DB_USER ?? 'ragnarok',
   DB_PASSWORD: process.env.DB_PASSWORD ?? 'ragnarok',
   DB_DATABASE_NAME: process.env.DB_DATABASE_NAME ?? 'ragnarok',
-  DB_ENABLE_DEBUG: (process.env.DB_ENABLE_DEBUG?.toLowerCase() ?? 'false') == 'true',
+  DB_ENABLE_DEBUG: getBooleanFromEnv(process.env.DB_ENABLE_DEBUG),
+  USE_MD5_PASSWORD: getBooleanFromEnv(process.env.USE_MD5_PASSWORD),
 };
 
 module.exports = ENV;
+
+function getBooleanFromEnv(envVar, defaultValue = 'false') {
+  return (envVar?.toLowerCase() ?? defaultValue) == 'true';
+}
