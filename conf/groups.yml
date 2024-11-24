@@ -48,6 +48,10 @@ Body:
     Commands:
       changedress: true
       resurrect: true
+      whodrops: true
+      showexp: true
+      refresh: true
+      autoloot: true
     Permissions:
       # without this basic permissions regular players could not trade or party
       can_trade: true
@@ -91,6 +95,7 @@ Body:
       breakguild: true
       channel: true
       langtype: true
+    CharCommands: true
     Permissions:
       attendance: false
   - Id: 2
@@ -224,6 +229,7 @@ Body:
       Support: true
       Law Enforcement: true
     LogCommands: true
+    CharCommands: true
     Permissions:
       can_trade: true
       can_party: true
