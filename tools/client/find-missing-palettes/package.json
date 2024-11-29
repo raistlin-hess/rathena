@@ -1,0 +1,14 @@
+{
+  "name": "find-missing-palettes",
+  "version": "1.0.0",
+  "description": "Searches an extracted GRF's data directory for missing clothing palettes.",
+  "main": "index.js",
+  "author": "raistlin-hess",
+  "license": "ISC",
+  "scripts": {
+    "start": "node index.js ../../../../../HessRO_FullClient_20230404/data"
+  },
+  "dependencies": {
+    "cli-progress": "^3.12.0"
+  }
+}
