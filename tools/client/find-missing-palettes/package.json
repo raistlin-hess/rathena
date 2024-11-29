@@ -6,7 +6,7 @@
   "author": "raistlin-hess",
   "license": "ISC",
   "scripts": {
-    "start": "node index.js ../../../../../HessRO_FullClient_20230404/data"
+    "start": "node index.js ../../../../../gravity/data ../../../../../HessRO_FullClient_20230404/data"
   },
   "dependencies": {
     "cli-progress": "^3.12.0"
