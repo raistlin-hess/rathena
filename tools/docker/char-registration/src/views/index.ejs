@@ -9,7 +9,6 @@
   <header>HessRO Registration Page</header>
 
   <main>
-    <!-- <form action="<%-registerUserFormAction %>" method="post"> -->
     <form>
       <fieldset>
         <label>
@@ -25,32 +24,34 @@
       <button type="submit" disabled>Register User</button>
     </form>
 
-    <dialog id="success-modal">
-      <article>
-        <header>Success!</header>
-        <main>
-          <input type="text" value="" readonly />
-        </main>
-        <footer>
-          <button>Close</button>
-        </footer>
-      </article>
-    </dialog>
-
-    <dialog id="failure-modal">
-      <article>
-        <header>Error!</header>
-        <main>
-          <input type="text" value="" readonly />
-        </main>
-        <footer>
-          <button>Close</button>
-        </footer>
-      </article>
-    </dialog>
   </main>
 
-  <footer>Passwords are stored in the database in plaintext, so don't use one you want us to know!</footer>
+  <footer>
+  </footer>
+
+  <dialog id="success-modal">
+    <article>
+      <header>Success!</header>
+      <main>
+        <input type="text" value="" readonly />
+      </main>
+      <footer>
+        <button>Close</button>
+      </footer>
+    </article>
+  </dialog>
+
+  <dialog id="failure-modal">
+    <article>
+      <header>Error!</header>
+      <main>
+        <input type="text" value="" readonly />
+      </main>
+      <footer>
+        <button>Close</button>
+      </footer>
+    </article>
+  </dialog>
 
   <script type="application/javascript">
     const formEl = document.querySelector('form');
