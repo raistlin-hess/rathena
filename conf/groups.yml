@@ -48,6 +48,8 @@ Body:
     Commands:
       changedress: true
       resurrect: true
+      mobinfo: true
+      iteminfo: true
       whodrops: true
       showexp: true
       refresh: true
