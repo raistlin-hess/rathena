@@ -3,7 +3,7 @@ const express = require('express');
 const { readFileSync } = require('fs');
 const { resolve } = require('path');
 const { initializeConnectionPool } = require('./server/database');
-const { EXPRESS_PORT, EXPRESS_CERT_PATH, EXPRESS_CERT_PRIV_KEY_PATH, EXPRESS_SKIP_HTTPS } = require('./env');
+const { EXPRESS_PORT, EXPRESS_CERT_PATH, EXPRESS_CERT_PRIV_KEY_PATH, EXPRESS_SKIP_HTTPS ,CLIENT_DOWNLOAD_LOCAL_PATH} = require('./env');
 
 
 //Create and configure server
@@ -12,7 +12,6 @@ const app = express();
 app.use(express.json());
 app.set('view engine', 'ejs');
 app.set('views', 'src/views');
-
 
 //Routing
 console.log('Registering route handlers...');

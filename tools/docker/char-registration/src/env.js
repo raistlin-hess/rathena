@@ -1,3 +1,5 @@
+const {resolve} = require('path');
+
 //Define all env variables here
 const ENV = {
   EXPRESS_PORT: Number(process.env.EXPRESS_PORT) || 443,
@@ -10,6 +12,7 @@ const ENV = {
   DB_DATABASE_NAME: process.env.DB_DATABASE_NAME ?? 'ragnarok',
   DB_ENABLE_DEBUG: getBooleanFromEnv(process.env.DB_ENABLE_DEBUG),
   USE_MD5_PASSWORD: getBooleanFromEnv(process.env.USE_MD5_PASSWORD),
+  CLIENT_DOWNLOAD_LOCAL_PATH: resolve(process.cwd(), process.env.CLIENT_DOWNLOAD_LOCAL_PATH ?? 'src/assets/client.rar'),
 };
 
 module.exports = ENV;

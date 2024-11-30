@@ -91,6 +91,7 @@ services:
             # Read-only access to SSL certs one folder outside of repo root
             - "../../../cert.pem:/usr/server/cert.pem:ro"
             - "../../../privkey.pem:/usr/server/privkey.pem:ro"
+            - "../../../HessRO_FullClient_20230404.rar:/usr/server/src/assets/client.rar:ro"
         environment:
             EXPRESS_PORT: 443
             EXPRESS_CERT_PATH: cert.pem
