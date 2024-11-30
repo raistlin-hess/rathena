@@ -4,6 +4,7 @@
   "description": "Note that this Dockerized environment **is not suitable** for production deployments, see [Installations](https://github.com/rathena/rathena/wiki/installations) instead.",
   "main": "src/index.js",
   "scripts": {
+    "dev-windows": "cross-env EXPRESS_SKIP_HTTPS=true EXPRESS_PORT=9001 npm run dev",
     "dev": "nodemon --verbose ./src/index.js",
     "start": "node ./src/index.js"
   },
@@ -11,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "@picocss/pico": "^2.0.6",
+    "cross-env": "^7.0.3",
     "ejs": "^3.1.10",
     "express": "^4.21.1",
     "mariadb": "^3.4.0",

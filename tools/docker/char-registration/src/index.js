@@ -3,7 +3,7 @@ const express = require('express');
 const { readFileSync } = require('fs');
 const { resolve } = require('path');
 const { initializeConnectionPool } = require('./server/database');
-const { EXPRESS_PORT, EXPRESS_CERT_PATH, EXPRESS_CERT_PRIV_KEY_PATH, EXPRESS_USE_SELF_SIGNED } = require('./env');
+const { EXPRESS_PORT, EXPRESS_CERT_PATH, EXPRESS_CERT_PRIV_KEY_PATH, EXPRESS_SKIP_HTTPS } = require('./env');
 
 
 //Create and configure server
@@ -23,7 +23,7 @@ console.log('Initializing database connection pool...');
 initializeConnectionPool();
 console.log('Connection pool initialized');
 
-if(EXPRESS_USE_SELF_SIGNED) {
+if(EXPRESS_SKIP_HTTPS) {
   app.listen(EXPRESS_PORT);
   console.log(`Serving HTTP traffic on port: ${EXPRESS_PORT}`);
 } else {
