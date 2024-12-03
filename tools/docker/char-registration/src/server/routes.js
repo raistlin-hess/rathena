@@ -1,14 +1,16 @@
-const {createReadStream} = require('fs');
+const {createReadStream, statSync} = require('fs');
 const {access} = require('fs/promises');
 const {resolve} = require('path');
 const {static} = require('express');
+const {filesize} = require('filesize');
 const {doesUserExist, createUser} = require('./database');
-const {CLIENT_DOWNLOAD_LOCAL_PATH, PATCH_FILES_LOCAL_PATH} = require('../env');
+const {CLIENT_DOWNLOAD_LOCAL_PATH, PATCH_FILES_LOCAL_PATH, LITE_CLIENT_DOWNLOAD_LOCAL_PATH} = require('../env');
 
 const ROUTES = {
   home: '/',
   registerUser: '/register-user',
-  downloadClient: '/download-client',
+  downloadFullClient: '/download-full-client',
+  downloadLiteClient: '/download-lite-client',
   plist: '/patch-files/plist.txt',
   patchFiles: '/patch-files',
   patcherHome: '/patcher-home',
@@ -19,9 +21,11 @@ module.exports = function initializeRoutes(app) {
   //Dynamic routes
   app.get(ROUTES.home, home);
   app.post(ROUTES.registerUser, registerUser);
-  app.get(ROUTES.downloadClient, downloadClient); //TODO: Move to static content?
 
   //Static content
+  app.use(ROUTES.downloadFullClient, static(CLIENT_DOWNLOAD_LOCAL_PATH, {index: false}));
+  app.use(ROUTES.downloadLiteClient, static(LITE_CLIENT_DOWNLOAD_LOCAL_PATH, {index: false}));
+
   app.use(ROUTES.patchFiles, static(PATCH_FILES_LOCAL_PATH, {index: false}));
   app.use(ROUTES.plist, static(resolve(PATCH_FILES_LOCAL_PATH, 'plist.txt'), {index: false}));
   app.use(ROUTES.patcherHome, static('C:\\Users\\hive\\Desktop\\Useful Junk\\rathena\\tools\\docker\\char-registration\\src\\views\\patcher-home'));
@@ -37,7 +41,10 @@ module.exports = function initializeRoutes(app) {
 function home(_, res) {
   res.render('index', {
     registerUserFormAction: ROUTES.registerUser,
-    downloadClient: ROUTES.downloadClient,
+    downloadFullClient: ROUTES.downloadFullClient,
+    fullClientSize: filesize(statSync(CLIENT_DOWNLOAD_LOCAL_PATH).size),
+    downloadLiteClient: ROUTES.downloadLiteClient,
+    liteClientSize: filesize(statSync(LITE_CLIENT_DOWNLOAD_LOCAL_PATH).size),
   });
 }
 

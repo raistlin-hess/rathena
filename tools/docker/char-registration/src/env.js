@@ -12,12 +12,17 @@ const ENV = {
   DB_DATABASE_NAME: process.env.DB_DATABASE_NAME ?? 'ragnarok',
   DB_ENABLE_DEBUG: getBooleanFromEnv(process.env.DB_ENABLE_DEBUG),
   USE_MD5_PASSWORD: getBooleanFromEnv(process.env.USE_MD5_PASSWORD),
-  CLIENT_DOWNLOAD_LOCAL_PATH: resolve(process.cwd(), process.env.CLIENT_DOWNLOAD_LOCAL_PATH ?? 'src/assets/client.rar'),
-  PATCH_FILES_LOCAL_PATH: resolve(process.cwd(), process.env.PATCH_FILES_LOCAL_PATH ?? 'src/assets/patch-files'),
+  CLIENT_DOWNLOAD_LOCAL_PATH: filepathFromCwd(process.env.CLIENT_DOWNLOAD_LOCAL_PATH ?? 'src/assets/client.rar'),
+  LITE_CLIENT_DOWNLOAD_LOCAL_PATH: filepathFromCwd(process.env.LITE_CLIENT_DOWNLOAD_LOCAL_PATH ?? 'src/assets/liteClient.zip'),
+  PATCH_FILES_LOCAL_PATH: filepathFromCwd(process.env.PATCH_FILES_LOCAL_PATH ?? 'src/assets/patch-files'),
 };
 
 module.exports = ENV;
 
 function getBooleanFromEnv(envVar, defaultValue = 'false') {
   return (envVar?.toLowerCase() ?? defaultValue) == 'true';
+}
+
+function filepathFromCwd(filepath) {
+  return resolve(process.cwd(), filepath);
 }

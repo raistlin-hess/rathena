@@ -27,7 +27,10 @@
   </main>
 
   <footer>
-    <a href="<%-downloadClient %>" download="HessRO.rar">Download HessRO Client</a>
+    <ul>
+      <li><a href="<%- downloadFullClient %>" download="HessRO.rar">Download Full HessRO Client (<%- fullClientSize %>)</a></li>
+      <li><a href="<%- downloadLiteClient %>" download="HessRO_LiteClient.zip">Client and Patcher only (<%- liteClientSize %>)</a></li>
+    </ul>
   </footer>
 
   <dialog id="success-modal">
