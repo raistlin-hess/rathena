@@ -90,6 +90,31 @@ services:
             dockerfile: Dockerfile
         depends_on:
             - char
+    registration:
+        image: "registration"
+        container_name: "registration"
+        ports:
+            - "9001:443"
+        build:
+            context: ./char-registration
+            dockerfile: Dockerfile
+        volumes:
+            # Read-only access to SSL certs one folder outside of repo root
+            # - "../../../cert.pem:/usr/server/cert.pem:ro"
+            # - "../../../privkey.pem:/usr/server/privkey.pem:ro"
+            # - "../../../HessRO_FullClient_20230404.rar:/usr/server/src/assets/client.rar:ro"
+            - "../patch-files:/usr/server/src/assets/patch-files:ro"
+        environment:
+            EXPRESS_PORT: 443
+            EXPRESS_CERT_PATH: cert.pem
+            EXPRESS_CERT_PRIV_KEY_PATH: privkey.pem
+            DB_HOST: db
+            DB_USER: ragnarok
+            DB_PASSWORD: ragnarok
+            DB_DATABASE_NAME: ragnarok
+            DB_ENABLE_DEBUG: false
+            USE_MD5_PASSWORD: true
+            # PATCH_FILES_LOCAL_PATH: src/assets/patch-files
 
 volumes:
     rathenadb:

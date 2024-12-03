@@ -13,6 +13,7 @@ const ENV = {
   DB_ENABLE_DEBUG: getBooleanFromEnv(process.env.DB_ENABLE_DEBUG),
   USE_MD5_PASSWORD: getBooleanFromEnv(process.env.USE_MD5_PASSWORD),
   CLIENT_DOWNLOAD_LOCAL_PATH: resolve(process.cwd(), process.env.CLIENT_DOWNLOAD_LOCAL_PATH ?? 'src/assets/client.rar'),
+  PATCH_FILES_LOCAL_PATH: resolve(process.cwd(), process.env.PATCH_FILES_LOCAL_PATH ?? 'src/assets/patch-files'),
 };
 
 module.exports = ENV;

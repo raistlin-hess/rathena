@@ -1,20 +1,37 @@
 const {createReadStream} = require('fs');
 const {access} = require('fs/promises');
+const {resolve} = require('path');
+const {static} = require('express');
 const {doesUserExist, createUser} = require('./database');
-const {CLIENT_DOWNLOAD_LOCAL_PATH} = require('../env');
-
+const {CLIENT_DOWNLOAD_LOCAL_PATH, PATCH_FILES_LOCAL_PATH} = require('../env');
 
 const ROUTES = {
   home: '/',
   registerUser: '/register-user',
   downloadClient: '/download-client',
+  plist: '/patch-files/plist.txt',
+  patchFiles: '/patch-files',
+  patcherHome: '/patcher-home',
 };
 
 
 module.exports = function initializeRoutes(app) {
+  //Dynamic routes
   app.get(ROUTES.home, home);
   app.post(ROUTES.registerUser, registerUser);
-  app.get(ROUTES.downloadClient, downloadClient);
+  app.get(ROUTES.downloadClient, downloadClient); //TODO: Move to static content?
+
+  //Static content
+  app.use(ROUTES.patchFiles, static(PATCH_FILES_LOCAL_PATH, {index: false}));
+  app.use(ROUTES.plist, static(resolve(PATCH_FILES_LOCAL_PATH, 'plist.txt'), {index: false}));
+  app.use(ROUTES.patcherHome, static('C:\\Users\\hive\\Desktop\\Useful Junk\\rathena\\tools\\docker\\char-registration\\src\\views\\patcher-home'));
+
+
+  //Fallback for logging
+  app.all('*', (req, _, next) => {
+    console.error(`[ERR] Unmatched route requested: ${req.url}`);
+    next();
+  });
 };
 
 function home(_, res) {

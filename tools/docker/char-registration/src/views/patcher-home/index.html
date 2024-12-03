@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" href="normalize.css">
+    <style>
+        :root {
+            /* IE11 can't use these, so just here for reference */
+            --primary: #0172ad;
+            --disabled: #525f7a;
+            --success: #2a7b6f;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            border: solid 2px black;
+            border-radius: 4px;
+            box-shadow: inset 0px 0px 10rem 1px black;
+            background: center no-repeat url("./patcherSplash.jpg");
+            background-size: cover;
+            justify-content: space-between;
+            overflow: hidden;
+        }
+
+        body>* {
+            border: solid 1px black;
+            padding: 1rem;
+            background-color: rgba(255, 255, 255, 0.6);
+        }
+
+        body>header {
+            justify-content: flex-start;
+            justify-items: flex-start;
+            justify-self: flex-start;
+            /* position: fixed; */
+            /* top: 0;
+            left: 45vw; */
+        }
+
+        main>div:not(:first-child) {
+            margin-top: 2rem;
+        }
+
+        main>div:first-child {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #patchLog {
+            border: solid 1px black;
+            padding: .25rem .25rem 0rem .25rem;
+        }
+
+        button {
+            background-color: #0172ad;
+            margin: 0px;
+            color: white;
+            border-radius: 4px;
+            border: solid 1px white;
+            box-shadow: 0px 0px 0.3rem 0px black;
+        }
+
+        button:disabled {
+            pointer-events: none;
+            opacity: 0.5;
+            background-color: #525f7a;
+        }
+
+        button:hover {
+            cursor: pointer;
+        }
+
+        button:hover {
+            box-shadow: inset 0px 0px 1rem 1px white;
+        }
+
+        button#playBtn:not(:disabled) {
+            background-color: #2a7b6f;
+        }
+
+        .patch-error {
+            background-color: #aa0000;
+            color: white;
+        }
+
+        #patchLog {
+            overflow: auto;
+            max-height: 40vh;
+            max-width: 60vw;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <button id="playBtn" disabled>Play</button>
+            <button id="setupBtn">Setup</button>
+            <button id="exitBtn">Exit</button>
+        </nav>
+    </header>
+    <main sstyle="visibility: hidden;">
+        <div id="patchOutput">
+            <span id="summary">Patching...</span>
+            <progress id="downloadProgress">asdfasdf</progress>
+            <progress id="installProgress" max="0" value="0"></progress>
+        </div>
+        <div id="patchLog">
+            <b>Patch log</b>
+            <ol>
+                No patches required.
+            </ol>
+        </div>
+    </main>
+    <div style="visibility: hidden;"></div>
+
+    <script type="application/javascript">
+        // if(!external || !external.invoke) {
+        //     var external = {
+        //         invoke: function(eventName) {
+        //             console.debug('Invoked: ' + eventName);
+        //         }
+        //     };
+        // }
+        // https://l1nkz.github.io/rpatchur/
+        const playBtn = document.getElementById('playBtn');
+        const setupBtn = document.getElementById('setupBtn');
+        const exitBtn = document.getElementById('exitBtn');
+
+        const mainEl = document.querySelector('main');
+        const patchOutputEl = document.getElementById('patchOutput');
+        const patchLogEl = document.getElementById('patchLog');
+        const summaryEl = document.getElementById('summary');
+
+        const downloadProgressEl = document.getElementById('downloadProgress');
+        const installProgressEl = document.getElementById('installProgress');
+        let firstDownloadStarted = false;
+        let downloadIndex = 0;
+        let installIndex = 0;
+
+        //Register button handlers
+        playBtn.addEventListener('click', function() {
+            playBtn.setAttribute('disabled', 'true');
+            external.invoke('play');
+        });
+        setupBtn.addEventListener('click', function() {external.invoke('setup');});
+        exitBtn.addEventListener('click', function() {external.invoke('exit');});
+
+        //Start the patching process
+        external.invoke('start_update');
+        //Regiser callbacks for patcher to call
+        function notificationInProgress() {
+            //Not sure what this is called with, but here to prevent IE11 errors
+        }
+        function patchingStatusReady() {
+            playBtn.removeAttribute('disabled');
+            downloadProgressEl.style.visibility = 'hidden';
+            installProgressEl.style.visibility = 'hidden';
+
+            summaryEl.innerText = 'Patch process completed. You may click Play to begin.';
+            addPatchLog(summaryEl.innerText);
+        }
+        function patchingStatusError(errorMsg) {
+            console.error(errorMsg);
+            playBtn.setAttribute('disabled', 'true');
+            patchLogEl.classList.add('patch-error');
+            addPatchLog(errorMsg);
+        }
+        function patchingStatusDownloading(currPatchNumber, totalPatches, bytesPerSec) {
+            //Edgecase to remove placeholder for no patches required
+            if(!firstDownloadStarted) {
+                firstDownloadStarted = true;
+                const place = patchLogEl.querySelector('ol').childNodes[0];
+                patchLogEl.querySelector('ol').removeChild(place);
+                addPatchLog('Patch started');
+            }
+
+            installProgressEl.style.visibility = 'hidden';
+            const downloadSpeed = bytesPerSec > 0
+                ? ' - ' + humanFileSize(bytesPerSec) + '/s'
+                : '';
+            downloadProgressEl.setAttribute('value', currPatchNumber);
+            downloadProgressEl.setAttribute('max', totalPatches);
+
+            const patchStatMsg = 'Downloading patch: ' + currPatchNumber + '/' + totalPatches;
+            summaryEl.innerText = patchStatMsg + downloadSpeed;
+            if(downloadIndex != currPatchNumber) {
+                addPatchLog(patchStatMsg);
+                downloadIndex = currPatchNumber;
+            }
+        }
+        function patchingStatusInstalling(currPatchNumber, totalPatches) {
+            installProgressEl.style.visibility = 'visible';
+            installProgressEl.setAttribute('value', currPatchNumber);
+            installProgressEl.setAttribute('max', totalPatches);
+
+            summaryEl.innerText = 'Installing: ' + currPatchNumber + '/' + totalPatches;
+            if(installIndex != currPatchNumber) {
+                addPatchLog(summaryEl.innerText);
+                installIndex = currPatchNumber;
+            }
+        }
+        function patchingStatusPatchApplied(filename) {
+            summaryEl.innerText = 'Completed: ' + filename;
+            addPatchLog(summaryEl.innerText);
+        }
+
+        //Utility functions
+        function addPatchLog(filename) {
+            const patchTime = (new Date()).toLocaleString();
+            const patchItemEl = document.createElement('li');
+            patchItemEl.innerText = '[' + patchTime + '] -- ' + filename;
+            patchLogEl.querySelector('ol').appendChild(patchItemEl);
+        }
+        // Note: Function taken from https://stackoverflow.com/a/20732091
+        function humanFileSize(size) {
+            const i = size == 0 ? 0 : Math.floor(Math.log(size) / Math.log(1024));
+            return (size / Math.pow(1024, i)).toFixed(2) * 1 + ' ' + ['B', 'kiB', 'MiB', 'GiB', 'TiB'][i];
+        }
+    </script>
+</body>
+
+</html>
