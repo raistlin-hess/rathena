@@ -28,7 +28,7 @@ module.exports = function initializeRoutes(app) {
 
   app.use(ROUTES.patchFiles, static(PATCH_FILES_LOCAL_PATH, {index: false}));
   app.use(ROUTES.plist, static(resolve(PATCH_FILES_LOCAL_PATH, 'plist.txt'), {index: false}));
-  app.use(ROUTES.patcherHome, static('C:\\Users\\hive\\Desktop\\Useful Junk\\rathena\\tools\\docker\\char-registration\\src\\views\\patcher-home'));
+  app.use(ROUTES.patcherHome, static(resolve(process.cwd(), 'src/views/patcher-home')));
 
 
   //Fallback for logging
