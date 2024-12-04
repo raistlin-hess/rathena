@@ -15,6 +15,7 @@ const ENV = {
   CLIENT_DOWNLOAD_LOCAL_PATH: filepathFromCwd(process.env.CLIENT_DOWNLOAD_LOCAL_PATH ?? 'src/assets/client.rar'),
   LITE_CLIENT_DOWNLOAD_LOCAL_PATH: filepathFromCwd(process.env.LITE_CLIENT_DOWNLOAD_LOCAL_PATH ?? 'src/assets/liteClient.zip'),
   PATCH_FILES_LOCAL_PATH: filepathFromCwd(process.env.PATCH_FILES_LOCAL_PATH ?? 'src/assets/patch-files'),
+  PATCHER_HOME_PATH: filepathFromCwd(process.env.PATCHER_HOME_PATH ?? 'src/views/patcher-home'),
 };
 
 module.exports = ENV;

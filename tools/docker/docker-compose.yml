@@ -93,6 +93,7 @@ services:
             - "../../../privkey.pem:/usr/server/privkey.pem:ro"
             - "../../../HessRO_FullClient_20230404.rar:/usr/server/src/assets/client.rar:ro"
             - "../../../HessRO_LiteClient.zip:/usr/server/src/assets/liteClient.zip:ro"
+            - "../../../hessro-patches/patch-files:src/assets/patch-files:ro"
         environment:
             EXPRESS_PORT: 443
             EXPRESS_CERT_PATH: cert.pem
