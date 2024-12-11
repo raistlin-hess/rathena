@@ -56474,7 +56474,7 @@ Body:
     Flags:
       NoConsume: true
     Delay:
-      Duration: 1200000
+      Duration: 60000
     Trade:
       NoDrop: true
       NoTrade: true
@@ -56485,7 +56485,7 @@ Body:
       NoMail: true
       NoAuction: true
     Script: |
-      warp "moc_para01",171,115;
+      warp "moc_para01",41,31;
   - Id: 22510
     AegisName: WolfKing_Scroll
     Name: King Wolf Scroll
