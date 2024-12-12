@@ -1,0 +1,8 @@
+
+prontera,155,175,0	script	NPC	-1,{
+	close;
+OnPCLoginEvent:
+	// atcommand strcharinfo(0)+"@autoloot",
+	atcommand strcharinfo(0)+"@showexp",
+close;
+}
