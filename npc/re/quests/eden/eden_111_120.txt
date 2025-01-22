@@ -17,7 +17,7 @@
 
 moc_para01,17,95,5	script	Mingmin#1	4_F_GENETIC,{
 	mes "[Mingmin]";
-	para_110lv01 = 5;
+        para_110lv01 = 6;
 	if (!callfunc("F_HasEdenGroupMark")) {
 		cutin "min02",0;
 		mes "A stranger. This place is supposed to be for Eden Group Members only.";
