@@ -1,0 +1,5 @@
+// Will display experience gained from killing a monster. (Note 1)
+disp_experience: yes
+
+// Will display zeny earned (from mobs, trades, etc) (Note 1)
+disp_zeny: yes
