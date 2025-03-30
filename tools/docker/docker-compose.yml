@@ -89,7 +89,7 @@ services:
             dockerfile: Dockerfile
         volumes:
             # Read-only access to SSL certs one folder outside of repo root
-            - "../../../cert.pem:/usr/server/cert.pem:ro"
+            - "../../../fullchain.pem:/usr/server/cert.pem:ro"
             - "../../../privkey.pem:/usr/server/privkey.pem:ro"
             - "../../../HessRO_FullClient_20230404.rar:/usr/server/src/assets/client.rar:ro"
             - "../../../HessRO_LiteClient.zip:/usr/server/src/assets/liteClient.zip:ro"
