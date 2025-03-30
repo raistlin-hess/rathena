@@ -3,3 +3,16 @@ disp_experience: yes
 
 // Will display zeny earned (from mobs, trades, etc) (Note 1)
 disp_zeny: yes
+
+// Should damage have a delay before it is applied? (Note 1)
+// Some skills might not have a delay by default regardless of this setting.
+// The official setting is yes, even thought it degrades performance a bit.
+delay_battle_damage: no
+
+// Should the damage timing be synchronized between the client and server? (Note 1)
+// This is not official behavior, but it should remove the position lag after being hit by a monster.
+// This setting only affects normal monster attacks and takes priority over "delay_battle_damage".
+// Many skills show their damage immediately, so setting "delay_battle_damage" to "no" at the same
+// time might improve the experience further, but will not work for all skills.
+// Tired of Dark Illusion hitting you 5 seconds too late? Then turn this on.
+synchronize_damage: yes
