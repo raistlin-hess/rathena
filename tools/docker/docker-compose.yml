@@ -1,6 +1,4 @@
 # This is the mostly original file from rathena.
-version: "3.7"
-
 services:
     db:
         image: "mariadb:bionic"
@@ -15,6 +13,8 @@ services:
             MYSQL_DATABASE: ragnarok
             MYSQL_USER: ragnarok
             MYSQL_PASSWORD: ragnarok
+        networks:
+            - ragnarok
 
     builder:
         image: "rathena:local"
@@ -31,6 +31,8 @@ services:
         environment:
             # BUILDER_CONFIGURE: "--enable-packetver=20211103"
             BUILDER_CONFIGURE: "--enable-packetver=20201228"
+        networks:
+            - ragnarok
     login:
         image: "rathena:local"
         container_name: "rathena-login"
@@ -47,6 +49,8 @@ services:
             dockerfile: Dockerfile
         depends_on:
             - db
+        networks:
+            - ragnarok
     char:
         image: "rathena:local"
         container_name: "rathena-char"
@@ -63,6 +67,8 @@ services:
             dockerfile: Dockerfile
         depends_on:
             - login
+        networks:
+            - ragnarok
     map:
         image: "rathena:local"
         container_name: "rathena-map"
@@ -79,6 +85,8 @@ services:
             dockerfile: Dockerfile
         depends_on:
             - char
+        networks:
+            - ragnarok
     registration:
         image: "registration"
         container_name: "registration"
@@ -104,6 +112,12 @@ services:
             DB_DATABASE_NAME: ragnarok
             DB_ENABLE_DEBUG: false
             USE_MD5_PASSWORD: true
+        networks:
+            - ragnarok
 
 volumes:
     rathenadb:
+
+networks:
+    ragnarok:
+        driver: "bridge"
