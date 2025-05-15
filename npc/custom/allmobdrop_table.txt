@@ -1,0 +1,12 @@
+// == Droppable items ====
+// Source: https://rathena.org/board/topic/130065-drop-on-all-monsters/?do=findComment&comment=402990
+// All mobs have a 3% drop rate of the following items for 24 hours after player logs in:
+// - 7619: Enriched_Elunium
+// - 7620: Enriched_Oridecon
+// -
+-	script	AllMobDrop	-1,{
+OnPCLoginEvent:
+	bonus_script "bonus2 bAddMonsterDropItem,7619,300;",86400,8,0;
+	bonus_script "bonus2 bAddMonsterDropItem,7620,300;",86400,8,0;
+	end;
+}
