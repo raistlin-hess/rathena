@@ -1,27 +1,11 @@
 // == Droppable items ====
 // Source: https://rathena.org/board/topic/130065-drop-on-all-monsters/?do=findComment&comment=402990
-// All mobs have a 3% drop rate of the following items for 24 hours after player logs in:
-// - 6240: HD_Oridecon
-// - 6241: HD_Elunium
-// - 7619: Enriched_Elunium
-// - 7620: Enriched_Oridecon
-// - 1000331: Ethernium
-// - 1000332: Etherdeocon
-// - 1000333: Enriched_Ethernium
-// - 1000334: Enriched_Etherdeocon
-// - 1000335: HD_Ethernium
-// - 1000336: HD_Etherdeocon
+// All mobs have a 5% drop rate of the following items for 24 hours after player logs in:
+// - 6635: Blacksmith_Blessing
 // - 
 
 -	script	AllMobDrop	-1,{
 OnPCLoginEvent:
-	bonus_script "bonus2 bAddMonsterDropItem,6240,100;",86400,8,0;
-	bonus_script "bonus2 bAddMonsterDropItem,6241,100;",86400,8,0;
-	bonus_script "bonus2 bAddMonsterDropItem,7619,100;",86400,8,0;
-	bonus_script "bonus2 bAddMonsterDropItem,7620,100;",86400,8,0;
-	bonus_script "bonus2 bAddMonsterDropItem,1000333,100;",86400,8,0;
-	bonus_script "bonus2 bAddMonsterDropItem,1000334,100;",86400,8,0;
-	bonus_script "bonus2 bAddMonsterDropItem,1000335,100;",86400,8,0;
-	bonus_script "bonus2 bAddMonsterDropItem,1000336,100;",86400,8,0;
+	bonus_script "bonus2 bAddMonsterDropItem,6635,500;",86400,8,0;
 	 end;
 }
