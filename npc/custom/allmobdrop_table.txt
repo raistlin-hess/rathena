@@ -3,10 +3,21 @@
 // All mobs have a 3% drop rate of the following items for 24 hours after player logs in:
 // - 7619: Enriched_Elunium
 // - 7620: Enriched_Oridecon
-// -
+// - 1000331: Ethernium
+// - 1000332: Etherdeocon
+// - 1000333: Enriched_Ethernium
+// - 1000334: Enriched_Etherdeocon
+// - 1000335: HD_Ethernium
+// - 1000336: HD_Etherdeocon
+// - 
+
 -	script	AllMobDrop	-1,{
 OnPCLoginEvent:
-	bonus_script "bonus2 bAddMonsterDropItem,7619,300;",86400,8,0;
-	bonus_script "bonus2 bAddMonsterDropItem,7620,300;",86400,8,0;
-	end;
+	bonus_script "bonus2 bAddMonsterDropItem,7619,100;",86400,8,0;
+	bonus_script "bonus2 bAddMonsterDropItem,7620,100;",86400,8,0;
+	bonus_script "bonus2 bAddMonsterDropItem,1000333,100;",86400,8,0;
+	bonus_script "bonus2 bAddMonsterDropItem,1000334,100;",86400,8,0;
+	bonus_script "bonus2 bAddMonsterDropItem,1000335,100;",86400,8,0;
+	bonus_script "bonus2 bAddMonsterDropItem,1000336,100;",86400,8,0;
+	 end;
 }
