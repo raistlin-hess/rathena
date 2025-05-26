@@ -39,3 +39,71 @@
 Header:
   Type: PLAYER_GROUP_DB
   Version: 1
+
+Body:
+  - Id: 0
+    # group 0 is the default group for every new account
+    Name: Player
+    Level: 0
+    Commands:
+      changedress: true
+      resurrect: true
+      commands: true
+      # Duel commands
+      accept: true
+      duel: true
+      duel: true
+      invite: true
+      reject: true
+      leave: true
+      # Guild commands
+      guild: true
+      guildrecall: true
+      guildstorage: true
+      # Misc commands
+      auction: true
+      autoloot: true
+      autoloottype: true
+      autoloottype reset: true
+      autotrade: true
+      breakguild: true
+      broadcast: true
+      charcommands: true
+      dropall: true
+      exp: true
+      follow: true
+      help: true
+      hominfo: true
+      homstats: true
+      homtalk: true
+      idsearch: true
+      iteminfo: true
+      localbroadcast: true
+      mail: true
+      me <message>: true
+      mobinfo: true
+      mobsearch: true
+      noask: true
+      noks: true
+      petrename: true
+      pettalk: true
+      rates: true
+      refresh: true
+      showdelay: true
+      showexp: true
+      showmobs: true
+      showzeny: true
+      stats: true
+      time: true
+      uptime: true
+      where: true
+      whereis: true
+      who: true
+      who2: true
+      who3: true
+      whodrops: true
+    Permissions:
+      # without this basic permissions regular players could not trade or party
+      can_trade: true
+      can_party: true
+      attendance: true
