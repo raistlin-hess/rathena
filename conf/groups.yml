@@ -52,7 +52,6 @@ Body:
       # Duel commands
       accept: true
       duel: true
-      duel: true
       invite: true
       reject: true
       leave: true
@@ -64,7 +63,6 @@ Body:
       auction: true
       autoloot: true
       autoloottype: true
-      autoloottype reset: true
       autotrade: true
       breakguild: true
       broadcast: true
@@ -80,7 +78,7 @@ Body:
       iteminfo: true
       localbroadcast: true
       mail: true
-      me <message>: true
+      me: true
       mobinfo: true
       mobsearch: true
       noask: true
