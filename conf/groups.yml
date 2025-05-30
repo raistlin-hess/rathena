@@ -67,6 +67,7 @@ Body:
       breakguild: true
       broadcast: true
       charcommands: true
+      delitem: true
       dropall: true
       exp: true
       follow: true
