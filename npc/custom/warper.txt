@@ -612,7 +612,7 @@ menu	"Starting Zone",S1, "Auction Hall",S2, "Battlegrounds",S3, "Casino",S4, "Di
 		"Eden Group Headquarters",S6, "Kunlun Arena",S7, "Izlude Arena",S8, 
 		"Monster Race Arena",S9, "Para Market",S10, "Turbo Track",S11;
 
-S1: Go("poring_w01",96,91);
+S1: Go("poring_w01",96,98);
 S2: Go("auction_01",22,68);
 S3: Go("bat_room",154,150);
 S4: Go("cmd_in02",179,129);
@@ -1315,7 +1315,7 @@ OnNaviGenerate:
 
 
 	// special
-	naviregisterwarp("Warper > Starting Zone", "poring_w01", 96, 91);
+	naviregisterwarp("Warper > Starting Zone", "poring_w01", 96, 98);
 	naviregisterwarp("Warper > Auction Hall", "auction_01", 22, 68);
 	naviregisterwarp("Warper > Battlegrounds", "bat_room", 154, 150);
 	naviregisterwarp("Warper > Casino", "cmd_in02", 179, 129);
