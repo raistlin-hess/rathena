@@ -1314,6 +1314,7 @@ OnNaviGenerate:
 
 
 	// special
+	naviregisterwarp("Warper > Starting Zone", "poring_w01", 96, 91);
 	naviregisterwarp("Warper > Auction Hall", "auction_01", 22, 68);
 	naviregisterwarp("Warper > Battlegrounds", "bat_room", 154, 150);
 	naviregisterwarp("Warper > Casino", "cmd_in02", 179, 129);
