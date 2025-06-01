@@ -84,3 +84,4 @@ ecl_in01,45,60,4	duplicate(Healer)	Healer#ecl	618
 malangdo,132,114,6	duplicate(Healer)	Healer#mal	618
 malaya,227,204,6	duplicate(Healer)	Healer#ma	618
 mora,55,152,4	duplicate(Healer)	Healer#mora	618
+poring_w01,101,91,4	duplicate(Healer)	Healer#star	618
