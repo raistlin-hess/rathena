@@ -28,7 +28,6 @@
 #define FIFOSIZE_SERVERLINK 256*1024
 
 // socket I/O macros
-#define RFIFOHEAD(fd)
 #define WFIFOHEAD( fd, size ) \
 	do{ \
 		if( ( fd ) && session[( fd )]->wdata_size + ( size ) > session[( fd )]->max_wdata ){ \
@@ -155,7 +154,7 @@ void set_defaultparse(ParseFunc defaultparse);
 
 /// Server operation request
 enum chrif_req_op {
-	// Char-server <-> login-server oepration
+	// Char-server <-> login-server operation
 	CHRIF_OP_LOGIN_BLOCK = 1,
 	CHRIF_OP_LOGIN_BAN,
 	CHRIF_OP_LOGIN_UNBLOCK,

@@ -126,7 +126,7 @@ int32 sock2newfd(SOCKET s)
 	return fd;
 }
 
-int32 sAccept(int32 fd, struct sockaddr* addr, int* addrlen)
+int32 sAccept(int32 fd, struct sockaddr* addr, int32* addrlen)
 {
 	SOCKET s;
 
@@ -375,7 +375,7 @@ int32 recv_to_fifo(int32 fd)
 	if( !session_isActive(fd) )
 		return -1;
 
-	len = sRecv(fd, (char *) session[fd]->rdata + session[fd]->rdata_size, (int)RFIFOSPACE(fd), 0);
+	len = sRecv(fd, (char *) session[fd]->rdata + session[fd]->rdata_size, (int32)RFIFOSPACE(fd), 0);
 
 	if( len == SOCKET_ERROR )
 	{//An exception has occured
@@ -415,7 +415,7 @@ int32 send_from_fifo(int32 fd)
 	if( session[fd]->wdata_size == 0 )
 		return 0; // nothing to send
 
-	len = sSend(fd, (const char *) session[fd]->wdata, (int)session[fd]->wdata_size, MSG_NOSIGNAL);
+	len = sSend(fd, (const char *) session[fd]->wdata, (int32)session[fd]->wdata_size, MSG_NOSIGNAL);
 
 	if( len == SOCKET_ERROR )
 	{//An exception has occured
@@ -950,7 +950,7 @@ int32 do_sockets(t_tick next)
 
 #if defined(WIN32)
 	// on windows, enumerating all members of the fd_set is way faster if we access the internals
-	for( i = 0; i < (int)rfd.fd_count; ++i )
+	for( i = 0; i < (int32)rfd.fd_count; ++i )
 	{
 		int32 fd = sock2fd(rfd.fd_array[i]);
 		if( session[fd] )
@@ -1566,13 +1566,13 @@ void socket_init(void)
 					int32 rlim_ori;
 					// set to maximum allowed
 					getrlimit(RLIMIT_NOFILE, &rlp);
-					rlim_ori = (int)rlp.rlim_cur;
+					rlim_ori = (int32)rlp.rlim_cur;
 					rlp.rlim_cur = rlp.rlim_max;
 					setrlimit(RLIMIT_NOFILE, &rlp);
 					// report limit
 					getrlimit(RLIMIT_NOFILE, &rlp);
 					rlim_cur = rlp.rlim_cur;
-					ShowWarning("socket_init: failed to set socket limit to %d, setting to maximum allowed (original limit=%d, current limit=%d, maximum allowed=%d, %s).\n", MAXCONN, rlim_ori, (int)rlp.rlim_cur, (int)rlp.rlim_max, errmsg);
+					ShowWarning("socket_init: failed to set socket limit to %d, setting to maximum allowed (original limit=%d, current limit=%d, maximum allowed=%d, %s).\n", MAXCONN, rlim_ori, (int32)rlp.rlim_cur, (int32)rlp.rlim_max, errmsg);
 				}
 			}
 		}
@@ -1635,12 +1635,34 @@ bool session_isActive(int32 fd)
 	return ( session_isValid(fd) && !session[fd]->flag.eof );
 }
 
+#ifdef HAVE_GETADDRINFO
+uint32_t host2ip(const char* hostname)
+{
+    struct addrinfo hints, *res;
+    memset(&hints, 0, sizeof(hints));
+    hints.ai_family = AF_INET;  // IPv4 address
+    hints.ai_socktype = SOCK_STREAM;
+
+    int32 err = getaddrinfo(hostname, nullptr, &hints, &res);
+    if (err != 0 || res == nullptr)
+    {
+        return 0;  // Return 0 if there's an error resolving the hostname
+    }
+
+    struct sockaddr_in* sockaddr_in = reinterpret_cast<struct sockaddr_in *>(res->ai_addr);
+    uint32_t ip = ntohl(sockaddr_in->sin_addr.s_addr);
+    freeaddrinfo(res);  // Don't forget to free the memory used by getaddrinfo
+
+    return ip;
+}
+#else
 // Resolves hostname into a numeric ip.
 uint32 host2ip(const char* hostname)
 {
 	struct hostent* h = gethostbyname(hostname);
 	return (h != nullptr) ? ntohl(*(uint32*)h->h_addr) : 0;
 }
+#endif
 
 // Converts a numeric ip into a dot-formatted string.
 // Result is placed either into a user-provided buffer or a static system buffer.
@@ -1696,7 +1718,7 @@ void send_shortlist_add_fd(int32 fd)
 // Do pending network sends and eof handling from the shortlist.
 void send_shortlist_do_sends()
 {
-	for( int32 i = static_cast<int>( send_shortlist_count - 1 ); i >= 0; --i ){
+	for( int32 i = static_cast<int32>( send_shortlist_count - 1 ); i >= 0; --i ){
 		int32 fd = send_shortlist_array[i];
 		int32 idx = fd/32;
 		int32 bit = fd%32;
