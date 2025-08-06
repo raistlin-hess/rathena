@@ -85,3 +85,7 @@ malangdo,132,114,6	duplicate(Healer)	Healer#mal	618
 malaya,227,204,6	duplicate(Healer)	Healer#ma	618
 mora,55,152,4	duplicate(Healer)	Healer#mora	618
 poring_w01,101,91,4	duplicate(Healer)	Healer#star	618
+
+
+// My custom healers
+moc_para01,35,20,8	duplicate(Healer)	Healer#eden_grp	618
