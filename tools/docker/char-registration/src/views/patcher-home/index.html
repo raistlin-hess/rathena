@@ -106,7 +106,7 @@
             <button id="exitBtn">Exit</button>
         </nav>
     </header>
-    <main sstyle="visibility: hidden;">
+    <main>
         <div id="patchOutput">
             <span id="summary">Patching...</span>
             <progress id="downloadProgress">asdfasdf</progress>
@@ -122,14 +122,6 @@
     <div style="visibility: hidden;"></div>
 
     <script type="application/javascript">
-        // if(!external || !external.invoke) {
-        //     var external = {
-        //         invoke: function(eventName) {
-        //             console.debug('Invoked: ' + eventName);
-        //         }
-        //     };
-        // }
-        // https://l1nkz.github.io/rpatchur/
         const playBtn = document.getElementById('playBtn');
         const setupBtn = document.getElementById('setupBtn');
         const exitBtn = document.getElementById('exitBtn');
@@ -145,17 +137,31 @@
         let downloadIndex = 0;
         let installIndex = 0;
 
-        //Register button handlers
-        playBtn.addEventListener('click', function() {
-            playBtn.setAttribute('disabled', 'true');
-            external.invoke('play');
-        });
-        setupBtn.addEventListener('click', function() {external.invoke('setup');});
-        exitBtn.addEventListener('click', function() {external.invoke('exit');});
+        try {
+            //Register button handlers
+            playBtn.addEventListener('click', function() {
+                playBtn.setAttribute('disabled', 'true');
+                external.invoke('play');
+            });
+            setupBtn.addEventListener('click', function() {external.invoke('setup');});
+            exitBtn.addEventListener('click', function() {external.invoke('exit');});
 
-        //Start the patching process
-        external.invoke('start_update');
-        //Regiser callbacks for patcher to call
+            //Start the patching process
+            dispatchRpatchurCommand('start_update');
+        } catch(err) {
+            //Edgecase to remove placeholder for no patches required
+            if(!firstDownloadStarted) {
+                firstDownloadStarted = true;
+                const place = patchLogEl.querySelector('ol').childNodes[0];
+                patchLogEl.querySelector('ol').removeChild(place);
+            }
+            patchingStatusError(err);
+            alert(err);
+            throw err;
+        }
+
+
+        ////////////////////// rpatchur callback functions //////////////////////
         function notificationInProgress() {
             //Not sure what this is called with, but here to prevent IE11 errors
         }
@@ -168,6 +174,7 @@
             addPatchLog(summaryEl.innerText);
         }
         function patchingStatusError(errorMsg) {
+            patchOutputEl.style.display = 'none';
             console.error(errorMsg);
             playBtn.setAttribute('disabled', 'true');
             patchLogEl.classList.add('patch-error');
@@ -212,7 +219,17 @@
             addPatchLog(summaryEl.innerText);
         }
 
-        //Utility functions
+        ////////////////////// Utility functions //////////////////////
+        function dispatchRpatchurCommand(command) {
+            // https://github.com/L1nkZ/rpatchur/issues/39
+            if(window.external && window.external.invoke) {
+                window.external.invoke(command);
+            } else if(window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers && window.webkit.messageHandlers.postMessage) {
+                window.webkit.messageHandlers.external.postMessage(command);
+            } else {
+                throw new Error('Failed to load rpatchur hooks!');
+            }
+        }
         function addPatchLog(filename) {
             const patchTime = (new Date()).toLocaleString();
             const patchItemEl = document.createElement('li');
