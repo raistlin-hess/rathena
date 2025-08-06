@@ -1392,3 +1392,4 @@ mora,57,152,4	duplicate(Warper)	Warper#mora	625
 // My custom warpers
 poring_w01,96,91,6	duplicate(Warper)	Warper#starter	625
 ama_test,49,95,6	duplicate(Warper)	Warper#itm_mall	625
+moc_para01,35,18,8	duplicate(Warper)	Warper#eden_grp	625
