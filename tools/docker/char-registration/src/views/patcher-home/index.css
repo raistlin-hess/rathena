@@ -1,0 +1,87 @@
+:root {
+  /* IE11 can't use these, so just here for reference */
+  --primary: #0172ad;
+  --disabled: #525f7a;
+  --success: #2a7b6f;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  border: solid 2px black;
+  border-radius: 4px;
+  box-shadow: inset 0px 0px 10rem 1px black;
+  background: center no-repeat url("./patcherSplash.jpg");
+  background-size: cover;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+body>* {
+  border: solid 1px black;
+  padding: 1rem;
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+body>header {
+  justify-content: flex-start;
+  justify-items: flex-start;
+  justify-self: flex-start;
+  /* position: fixed; */
+  /* top: 0;
+            left: 45vw; */
+}
+
+main>div:not(:first-child) {
+  margin-top: 2rem;
+}
+
+main>div:first-child {
+  display: flex;
+  flex-direction: column;
+}
+
+#patchLog {
+  border: solid 1px black;
+  padding: .25rem .25rem 0rem .25rem;
+}
+
+button {
+  background-color: #0172ad;
+  margin: 0px;
+  color: white;
+  border-radius: 4px;
+  border: solid 1px white;
+  box-shadow: 0px 0px 0.3rem 0px black;
+}
+
+button:disabled {
+  pointer-events: none;
+  opacity: 0.5;
+  background-color: #525f7a;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+button:hover {
+  box-shadow: inset 0px 0px 1rem 1px white;
+}
+
+button#playBtn:not(:disabled) {
+  background-color: #2a7b6f;
+}
+
+.patch-error {
+  background-color: #aa0000;
+  color: white;
+}
+
+#patchLog {
+  overflow: auto;
+  max-height: 40vh;
+  max-width: 60vw;
+}
