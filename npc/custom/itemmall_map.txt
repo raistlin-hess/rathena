@@ -371,3 +371,67 @@ OnInit:
 -	shop	mixheadgear_mob#7	-1,501:1000
 -	shop	mixheadgear_mob#8	-1,501:1000
 -	shop	mixheadgear_mob#9	-1,501:1000
+
+ama_test,48,88,5	script	Autocast Gear	863,{
+	.@menu$ = getvariableofnpc( .alphabet_menu$, "autogear_seller_creation" );
+	if (.@menu$ == "") {
+		mes "[Autocast Gear Seller]";
+		mes "I am sorry, it seems like something went wrong.";
+		mes "I cannot find any autocast gear in our database at the moment.";
+		mes "Please contact a game master.";
+		close;
+	}
+	mes "[Autocast Gear Seller]";
+	mes "Welcome!";
+	mes "I can sell you any gear with autocast bonuses in the game. Would you like to have a look?";
+	next;
+	.@s = select(.@menu$) -1;
+	close2;
+	callshop "autogear_mob#"+ getvariableofnpc( .alphabet$[.@s], "autogear_seller_creation" ), 1;
+	end;
+}
+
+-	script	autogear_seller_creation	-1,{
+	end;
+OnInit:
+	if (checkre(0)) {
+		.@item_db$ = "(SELECT * FROM item_db_re UNION ALL SELECT * FROM item_db2_re) AS combined_item_db";
+	} else {
+		.@item_db$ = "(SELECT * FROM item_db UNION ALL SELECT * FROM item_db2) AS combined_item_db";
+	}
+	
+	// Define the list of item IDs to exclude from the shop (comma-separated)
+	.@exclude_ids$ = "13473,5919,5689,2792,2793,5761,15123"; // Add item IDs here
+
+	// Show upper gear only, no combinations
+	.@autogear_filter$ = "`script` LIKE '%bAutoSpell%'";
+
+	freeloop 1;
+	.@group = 0;
+	.@size_alphabet = 0;
+	.@total = query_sql( "SELECT `combined_item_db`.`id`, `combined_item_db`.`price_buy` FROM "+ .@item_db$ +" WHERE (" + .@autogear_filter$ + ") AND `id` NOT IN ("+ .@exclude_ids$ +") ORDER BY FIELD(type, 'Weapon', 'Armor', 'Shadowgear', 'Card', 'Delayconsume', 'Etc', 'Healing', 'Usable'), `name_english` ASC;", .@id,.@price_buy );
+	for ( .@i = 0; .@i < .@total; .@i++ ) {
+		.@new = (.@i) / 100 + 1;
+		if(.@group != .@new){
+			.@group = .@new;
+			.alphabet$[.@size_alphabet++] = .@group;
+			.alphabet_menu$ = .alphabet_menu$ +" Mixed Headgear "+.@group+ ":";
+			npcshopdelitem "autogear_mob#"+ .@group, 501;
+		}
+		.@price = 1000000;
+		if (.@price_buy[.@i] > 20)
+			.@price = .@price_buy[.@i];
+		npcshopadditem "autogear_mob#"+ .@group, .@id[.@i], .@price;
+	}
+	freeloop 0;
+	end;
+}
+-	shop	autogear_mob#1	-1,501:1000
+-	shop	autogear_mob#2	-1,501:1000
+-	shop	autogear_mob#3	-1,501:1000
+-	shop	autogear_mob#4	-1,501:1000
+-	shop	autogear_mob#5	-1,501:1000
+-	shop	autogear_mob#6	-1,501:1000
+-	shop	autogear_mob#7	-1,501:1000
+-	shop	autogear_mob#8	-1,501:1000
+-	shop	autogear_mob#9	-1,501:1000
