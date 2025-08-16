@@ -9828,7 +9828,7 @@
 18663,Sunglasses_Bball_Hat,Sunglasses Baseball Hat,4,20,,200,,2,,1,0xFFFFFFFE,63,2,256,,20,1,812,{ bonus bInt,3; },{},{}
 18664,Blind_Glasses,Blind Glasses,4,20,,400,,3,,0,0xFFFFFFFE,63,2,512,,20,1,813,{},{},{}
 18665,Orange_In_Mouth,Orange In Mouth,4,20,,200,,0,,0,0xFFFFFFFE,63,2,1,,20,0,814,{},{},{}
-18666,CD_In_Mouth,CD In Mouth,4,20,,200,,0,,0,0xFFFFFFFE,63,2,1,,20,0,815,{ bonus3 bAutoSpell,"MG_COLDBOLT",3,30; bonus3 bAutoSpell,"MG_SOULSTRIKE",3,30; bonus3 bAutoSpell,"WZ_EARTHSPIKE",3,30; bonus3 bAutoSpell,"MG_FIREBOLT",3,30; bonus3 bAutoSpell,"MG_LIGHTNINGBOLT",3,30; },{},{}
+18666,CD_In_Mouth,CD In Mouth,4,20,,200,,0,,0,0xFFFFFFFF,63,2,1,,20,0,815,{ bonus3 bAutoSpell,"MG_COLDBOLT",3,30; bonus3 bAutoSpell,"MG_SOULSTRIKE",3,30; bonus3 bAutoSpell,"WZ_EARTHSPIKE",3,30; bonus3 bAutoSpell,"MG_FIREBOLT",3,30; bonus3 bAutoSpell,"MG_LIGHTNINGBOLT",3,30; },{},{}
 18667,Cat_Lace_Hairband,Cat Lace Hairband,4,20,,500,,2,,1,0xFFFFFFFE,63,2,256,,60,0,816,{ bonus bDex,3; },{},{}
 18668,Droopy_Turtle_Hat,Droopy Turtle Hat,4,20,,300,,1,,1,0xFFFFFFFE,63,2,256,,1,1,694,{ skill "AL_DECAGI",3; },{},{}
 18669,Cowhide_Hat,Cowhide Hat,4,20,,200,,3,,1,0xFFFFFFFE,63,2,256,,1,1,819,{ bonus bDex,2; bonus bMaxHPrate,1; },{},{}
