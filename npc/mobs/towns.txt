@@ -37,3 +37,16 @@ jawaii_in,72,74,5,1	monster	Black Mushroom	1084,2,3000000,1200000
 // Inside Lighthalzen
 //==================================================
 lhz_in01,157,54	monster	Red Mushroom	1085,1,120000,100000
+
+// Prontera and mall
+prontera,146,188,1,1	monster	Training Dummy	21067,1,3600000,1200000
+prontera,144,188,1,1	monster	Training Dummy	21067,1,3600000,1200000
+prontera,145,190,1,1	monster	Training Dummy	21067,1,3600000,1200000
+
+prontera,148,170,1,1	monster	Training Dummy	21067,1,3600000,1200000
+prontera,155,170,1,1	monster	Training Dummy	21067,1,3600000,1200000
+prontera,163,170,1,1	monster	Training Dummy	21067,1,3600000,1200000
+
+prontera,155,196,1,1	monster	Town Poring	2401,10,60000,0
+
+ama_test,49,103,1,1	monster	Training Dummy	21067,1,3600000,1200000
