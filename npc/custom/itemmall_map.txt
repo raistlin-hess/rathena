@@ -415,7 +415,7 @@ OnInit:
 		if(.@group != .@new){
 			.@group = .@new;
 			.alphabet$[.@size_alphabet++] = .@group;
-			.alphabet_menu$ = .alphabet_menu$ +" Mixed Headgear "+.@group+ ":";
+			.alphabet_menu$ = .alphabet_menu$ +" Autocast Gear "+.@group+ ":";
 			npcshopdelitem "autogear_mob#"+ .@group, 501;
 		}
 		.@price = 1000000;
