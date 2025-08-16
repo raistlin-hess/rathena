@@ -87229,8 +87229,8 @@ Body:
     Weight: 200
     Jobs:
       All: true
-      Novice: false
-      SuperNovice: false
+      Novice: true
+      SuperNovice: true
     Locations:
       Head_Low: true
     ArmorLevel: 1
