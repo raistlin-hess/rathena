@@ -1,0 +1,74 @@
+//===== rAthena Script =======================================
+//= Plagiarism NPC
+//===== By: ==================================================
+//= Easycore
+//===== Last Updated: ========================================
+//= 20210905
+//===== Description: ========================================= 
+//= Simple Plagiarism Skill
+//= Require 'getskillname' script command:
+//=    https://rathena.org/board/files/file/4307-script-command-getskillname/
+//============================================================
+
+prontera,170,203,3	script	Plagiarism Master	747,{
+	mes "[ ^FF0000Plagiarism Master^000000 ]";
+	if (.plag_skill && !getskilllv("RG_PLAGIARISM")) {
+		mes "You must have Plagiarism learned.";
+		close;
+	}
+	mes "Heya ^FFA500"+strcharinfo(0)+"^000000!";
+	mes "Do you want to copy a skill?";
+	if (.zeny)
+		mes "My service costs ^FF0000"+.zeny+" Zeny^000000.";
+	if (select("~ Proceed","Cancel") == 2) close;
+	if (.zeny > 0 && Zeny < .zeny) {
+		message(strcharinfo(0),"Not enough Zeny.");
+		close;
+	}
+	.@menu$ = "";
+	.@f = getarraysize(.SkillID);
+	for(.@i = 0; .@i < .@f; .@i++)
+		.@menu$ += getskillname(.SkillID[.@i])+(.@i==.@f?"":":");
+	.@s = select(.@menu$) - 1;
+	close2;
+	if (.zeny > 0 && Zeny < .zeny)
+		end;
+	if (.zeny > 0)
+		Zeny -= .zeny;
+	npcskill .SkillID[.@s],.SkillLV[.@s],20,200;
+	sleep2 1500;
+	unitwarp getnpcid(0),.map$,.x,.y;
+	end;
+
+	OnInit:
+		//Default NPC Data Values
+		setunitdata(getnpcid(0),UNPC_DEX,500);
+		setunitdata(getnpcid(0),UNPC_ATKMIN,1);
+		setunitdata(getnpcid(0),UNPC_ATKMAX,2);
+		setunitdata(getnpcid(0),UNPC_MATKMIN,1);
+		setunitdata(getnpcid(0),UNPC_MATKMAX,2);
+		getmapxy(.map$,.x,.y,BL_NPC);
+
+		//Configuration
+		//Zeny required? Set 0 to disable it
+		.zeny = 50000;
+		//Must Plagiarism skil be learned? (1. Yes | 0. No)
+		.plag_skill = 1;
+		//Skill ID Array
+		setarray .SkillID[0],230,148,47,271,212,5,122,62,1001,123,14,535,534,46,90,52,17,19,80,18,121,15,88,254,91,253,156,539,527,84,542,116,20,541,85,7,79,42,83,11,266,1009,536,272,263,3008,530,251,1006,81,250,13,537,152,89,267,337,1004,526,21,77,528,86,540;
+		//Skill LV Array
+		setarray .SkillLV[0],5,1,10,5,10,10,5,10,1,5,10,10,10,10,5,10,10,10,10,10,5,10,10,10,5,10,1,5,5,10,5,5,10,5,10,10,10,10,10,10,5,1,5,5,10,10,5,5,1,10,5,10,10,1,10,5,1,1,10,10,10,10,5,10;
+		end;
+}
+
+//JS script to determine id/lvl arrays above:
+// const yaml = await import("https://unpkg.com/yaml@^2/browser");
+// let skills = parse(`...`).Body;
+// let copyable = skills.filter(s => {
+//   const copyFlags = s.CopyFlags?.Skill ?? {};
+//   const noDamage = s.DamageFlags?.NoDamage ?? false;
+//   return copyFlags.Plagiarism && copyFlags.Reproduce && !noDamage;
+// });
+// let final = copyable.map(s => ({id: s.Id, name: s.Description, maxLevel: s.MaxLevel})).sort((prev, curr) => prev.name.localeCompare(curr.name));
+// let ids = final.map(s => s.id).join();
+// let lvls = final.map(s => s.maxLevel).join();
