@@ -3669,6 +3669,23 @@ Valid <flag> are:
 	
 ---------------------------------------
 
+*getskillname(<skill id>)
+*getskillname("<skill name>")
+
+This function returns the Skill Description (skill cast's name) provided in skill_db.yml.
+If the skill is invalid returns 'Unknown Skill'.
+
+Example 1:
+	mes "Skill Name: "+getskillname("SM_SWORD");
+	(print "Skill Name: Sword Mastery")
+
+Example 2:
+	if (getskilllv(225))
+		mes getskillname(225)+" is already learned!";
+	(print "Intimidate is already learned!")
+
+---------------------------------------
+
 *getmonsterinfo(<mob ID>,<type>)
 *getmonsterinfo(<mob name>,<type>)
 

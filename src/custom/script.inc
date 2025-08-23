@@ -666,6 +666,21 @@ BUILDIN_FUNC(fakekageobo) {
 }
 
 
+/// Returns the skill's name [Easycore]
+/// https://rathena.org/board/files/file/4307-script-command-getskillname/
+///
+/// getskillname(<skill id>)
+/// getskillname("<skill name>")
+BUILDIN_FUNC(getskillname)
+{
+	uint16 skill_id = (script_isstring(st,2) ? skill_name2id(script_getstr(st,2)) : script_getnum(st,2));
+	if (!skill_get_index(skill_id))
+		script_pushconststr(st, "Unknown Skill");
+	else
+		script_pushstrcopy(st,skill_get_desc(skill_id));
+	return SCRIPT_CMD_SUCCESS;
+}
+
 //id,range,hit,inf,element,nk,splash,maxLvl,list_num,castcancel,cast_defence_rate,inf2,maxcount,skill_type,blow_count,inf3,name
 //Regex to parse name and level: ^([\-\d\w:]+,){7}(\d+).+\t+([\w_]+),.*$
 //Regex to format it: skill "$3",$2;
